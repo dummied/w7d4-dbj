@@ -21,6 +21,20 @@ $.getJSON('https://damp-depths-50705.herokuapp.com/api/notes/')
     $(this).serialize())
   })
 
+  $('#notes').on('click', '.tag', function(ev){
+    ev.preventDefault()
+    $('#notes').html('')
+    $.getJSON('https://damp-depths-50705.herokuapp.com/api/notes/tag/' +
+    $(this).html())
+    .then(function(r){
+      $('#header').append(':' + r.tag.name)
+      r.tag.notes.forEach(function(note){
+        var display = note_template(note)
+        $('#notes').prepend(display)
+        console.log(tag)
+      })
+    })
+  })
 
 
 
