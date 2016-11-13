@@ -1,10 +1,3 @@
-// var modal_source = $("#modal-template").html();
-// var template = Handlebars.compile(modal_source);
-
-var notes_source = $("#note_template").html();
-var note_template = Handlebars.compile(notes_source)
-
-
 $.getJSON('https://damp-depths-50705.herokuapp.com/api/notes/')
 .then(function(r){
   return r.notes.forEach(function(note){
@@ -31,12 +24,26 @@ $('#notes').on('click', '.tag', function(ev){
     r.tag.notes.forEach(function(note){
       var display = note_template(note)
       $('#notes').prepend(display)
-      console.log(tag)
+
     })
   })
 })
 
-// if(window.location.hash.match(/#\d+/).length > 0) {
-//   id = window.location.hash.substring(1)
-//   $('#photo_holder').modal('show')
-// }
+$(document).ready(function(){
+  if(window.location.hash.match(/#\d+/).length > 0) {
+    id = window.location.hash.substring(1)
+    $.getJSON('https://damp-depths-50705.herokuapp.com/api/notes/' + id)
+    .then(function(r){
+      console.log(r.note)
+      var display = modal_template(r.note)
+      $('#note_modal').append(display)
+      $('#note_show').modal('show')
+    })
+  }
+})
+
+var modal_source = $("#modal-template").html();
+var modal_template = Handlebars.compile(modal_source);
+
+var notes_source = $("#note_template").html();
+var note_template = Handlebars.compile(notes_source)
