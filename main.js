@@ -30,12 +30,12 @@ $('#notes').on('click', '.tag', function(ev){
 })
 
 $(document).ready(function(){
-  alert("howdy")
+  console.log("howdy")
   if(window.location.hash.match(/#\d+/).length > 0) {
     id = window.location.hash.substring(1)
     $.getJSON('https://damp-depths-50705.herokuapp.com/api/notes/' + id)
     .then(function(r){
-      alert("hey")
+      console.log("hey")
       console.log(r.note)
       var display = modal_template(r.note)
       $('#note_modal').append(display)
